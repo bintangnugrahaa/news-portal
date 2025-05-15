@@ -16,13 +16,13 @@
     <nav id="Navbar" class="max-w-[1130px] mx-auto flex justify-between items-center mt-[30px]">
         <div class="logo-container flex gap-[30px] items-center">
             <a href="index.html" class="flex shrink-0">
-                <img src="assets/images/logos/logo.svg" alt="logo" />
+                <img src="{{ asset('images/logos/logo.svg') }}" alt="logo" />
             </a>
             <div class="h-12 border border-[#E8EBF4]"></div>
             <form action="searchPage.html"
                 class="w-[450px] flex items-center rounded-full border border-[#E8EBF4] p-[12px_20px] gap-[10px] focus-within:ring-2 focus-within:ring-[#FF6B18] transition-all duration-300">
                 <button type="submit" class="w-5 h-5 flex shrink-0">
-                    <img src="assets/images/icons/search-normal.svg" alt="icon" />
+                    <img src="{{ asset('images/icons/search-normal.svg') }}" alt="icon" />
                 </button>
                 <input type="text" name="" id=""
                     class="appearance-none outline-none w-full font-semibold placeholder:font-normal placeholder:text-[#A3A6AE]"
@@ -36,7 +36,7 @@
             <a href=""
                 class="rounded-full p-[12px_22px] flex gap-[10px] font-bold transition-all duration-300 bg-[#FF6B18] text-white hover:shadow-[0_10px_20px_0_#FF6B1880]">
                 <div class="w-6 h-6 flex shrink-0">
-                    <img src="assets/images/icons/favorite-chart.svg" alt="icon" />
+                    <img src="{{ asset('images/icons/favorite-chart.svg') }}" alt="icon" />
                 </div>
                 <span>Post Ads</span>
             </a>
@@ -44,7 +44,7 @@
     </nav>
     <nav id="Category" class="max-w-[1130px] mx-auto flex justify-center items-center gap-4 mt-[30px]">
         @foreach ($categories as $category)
-            <a href="{{ route('front.details', $category->slug) }}"
+            <a href="{{ route('front.category', $category->slug) }}"
                 class="rounded-full p-[12px_22px] flex gap-[10px] font-semibold transition-all duration-300 border border-[#EEF0F7] hover:ring-2 hover:ring-[#FF6B18]">
                 <div class="w-6 h-6 flex shrink-0">
                     <img src="{{ Storage::url($category->icon) }}" alt="icon" />
@@ -68,16 +68,16 @@
                             <a href="{{ route('front.details', $article->slug) }}"
                                 class="font-bold text-4xl leading-[45px] text-white two-lines hover:underline transition-all duration-300">{{ $article->name }}</a>
                             <p class="text-white">{{ $article->created_at->format('d M, Y') }} ·
-                                {{ strlen($article->name) > 50 ? substr($article->name, 0, 50) . '...' : $article->name }}
+                                {{ $article->category->name }}
                         </div>
                         <div class="prevNextButtons flex items-center gap-4 mb-[60px]">
                             <button
                                 class="button--previous appearance-none w-[38px] h-[38px] flex items-center justify-center rounded-full shrink-0 ring-1 ring-white hover:ring-2 hover:ring-[#FF6B18] transition-all duration-300">
-                                <img src="assets/images/icons/arrow.svg" alt="arrow" />
+                                <img src="{{ asset('images/icons/arrow.svg') }}" alt="arrow" />
                             </button>
                             <button
                                 class="button--next appearance-none w-[38px] h-[38px] flex items-center justify-center rounded-full shrink-0 ring-1 ring-white hover:ring-2 hover:ring-[#FF6B18] transition-all duration-300 rotate-180">
-                                <img src="assets/images/icons/arrow.svg" alt="arrow" />
+                                <img src="{{ asset('images/icons/arrow.svg') }}" alt="arrow" />
                             </button>
                         </div>
                     </div>
@@ -162,7 +162,7 @@
             </a>
             <p class="font-medium text-sm leading-[21px] text-[#A3A6AE] flex gap-1">
                 Our Advertisement <a href="#" class="w-[18px] h-[18px]"><img
-                        src="assets/images/icons/message-question.svg" alt="icon" /></a>
+                        src="{{ asset('images/icons/message-question.svg') }}" alt="icon" /></a>
             </p>
         </div>
     </section>
@@ -172,7 +172,7 @@
                 Latest For You <br />
                 in Entertainment
             </h2>
-            <a href="{{ route('front.details', 'entertainment') }}"
+            <a href="{{ route('front.category', 'entertainment') }}"
                 class="rounded-full p-[12px_22px] flex gap-[10px] font-semibold transition-all duration-300 border border-[#EEF0F7] hover:ring-2 hover:ring-[#FF6B18]">Explore
                 All</a>
         </div>
@@ -186,7 +186,7 @@
                     <div class="flex flex-col gap-[10px]">
                         <p class="text-white">Featured</p>
                         <a href="{{ route('front.details', $entertainment_featured_articles->slug) }}"
-                            class="font-bold text-[30px] leading-[36px] text-white hover:underline transition-all duration-300">{{ $entertainment_featured_articles->name }}</a>
+                            class="font-bold text-[30px] leading-[36px] text-white hover:underline transition-all duration-300">{{ strlen($entertainment_featured_articles->name) > 50 ? substr($entertainment_featured_articles->name, 0, 70) . '...' : $entertainment_featured_articles->name }}</a>
                         <p class="text-white">{{ $entertainment_featured_articles->created_at->format('d M, Y') }}</p>
                     </div>
                 </div>
@@ -202,7 +202,9 @@
                                         class="object-cover w-full h-full" alt="thumbnail" />
                                 </div>
                                 <div class="flex flex-col justify-center-center gap-[6px]">
-                                    <h3 class="font-bold text-lg leading-[27px]">{{ $article->name }}</h3>
+                                    <h3 class="font-bold text-lg leading-[27px]">
+                                        {{ strlen($article->name) > 50 ? substr($article->name, 0, 70) . '...' : $article->name }}
+                                    </h3>
                                     <p class="text-sm leading-[21px] text-[#A3A6AE]">
                                         {{ $article->created_at->format('d M, Y') }}
                                     </p>
@@ -225,7 +227,7 @@
                 Latest For You <br />
                 in Business
             </h2>
-            <a href="{{ route('front.details', 'business') }}"
+            <a href="{{ route('front.category', 'business') }}"
                 class="rounded-full p-[12px_22px] flex gap-[10px] font-semibold transition-all duration-300 border border-[#EEF0F7] hover:ring-2 hover:ring-[#FF6B18]">Explore
                 All</a>
         </div>
@@ -239,7 +241,7 @@
                     <div class="flex flex-col gap-[10px]">
                         <p class="text-white">Featured</p>
                         <a href="{{ route('front.details', $business_featured_articles->slug) }}"
-                            class="font-bold text-[30px] leading-[36px] text-white hover:underline transition-all duration-300">{{ $business_featured_articles->name }}</a>
+                            class="font-bold text-[30px] leading-[36px] text-white hover:underline transition-all duration-300">{{ strlen($business_featured_articles->name) > 50 ? substr($business_featured_articles->name, 0, 70) . '...' : $business_featured_articles->name }}</a>
                         <p class="text-white">{{ $business_featured_articles->created_at->format('d M, Y') }}</p>
                     </div>
                 </div>
@@ -255,7 +257,9 @@
                                         class="object-cover w-full h-full" alt="thumbnail" />
                                 </div>
                                 <div class="flex flex-col justify-center-center gap-[6px]">
-                                    <h3 class="font-bold text-lg leading-[27px]">{{ $article->name }}</h3>
+                                    <h3 class="font-bold text-lg leading-[27px]">
+                                        {{ strlen($article->name) > 50 ? substr($article->name, 0, 70) . '...' : $article->name }}
+                                    </h3>
                                     <p class="text-sm leading-[21px] text-[#A3A6AE]">
                                         {{ $article->created_at->format('d M, Y') }}
                                     </p>
@@ -278,7 +282,7 @@
                 Latest For You <br />
                 in Automotive
             </h2>
-            <a href="{{ route('front.details', 'automotive') }}"
+            <a href="{{ route('front.category', 'automotive') }}"
                 class="rounded-full p-[12px_22px] flex gap-[10px] font-semibold transition-all duration-300 border border-[#EEF0F7] hover:ring-2 hover:ring-[#FF6B18]">Explore
                 All</a>
         </div>
@@ -292,7 +296,7 @@
                     <div class="flex flex-col gap-[10px]">
                         <p class="text-white">Featured</p>
                         <a href="{{ route('front.details', $automotive_featured_articles->slug) }}"
-                            class="font-bold text-[30px] leading-[36px] text-white hover:underline transition-all duration-300">{{ $automotive_featured_articles->name }}</a>
+                            class="font-bold text-[30px] leading-[36px] text-white hover:underline transition-all duration-300">{{ strlen($automotive_featured_articles->name) > 50 ? substr($automotive_featured_articles->name, 0, 70) . '...' : $automotive_featured_articles->name }}</a>
                         <p class="text-white">{{ $automotive_featured_articles->created_at->format('d M, Y') }}</p>
                     </div>
                 </div>
@@ -308,7 +312,9 @@
                                         class="object-cover w-full h-full" alt="thumbnail" />
                                 </div>
                                 <div class="flex flex-col justify-center-center gap-[6px]">
-                                    <h3 class="font-bold text-lg leading-[27px]">{{ $article->name }}</h3>
+                                    <h3 class="font-bold text-lg leading-[27px]">
+                                        {{ strlen($article->name) > 50 ? substr($article->name, 0, 70) . '...' : $article->name }}
+                                    </h3>
                                     <p class="text-sm leading-[21px] text-[#A3A6AE]">
                                         {{ $article->created_at->format('d M, Y') }}
                                     </p>
