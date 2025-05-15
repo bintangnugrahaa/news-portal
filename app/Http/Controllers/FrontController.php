@@ -32,8 +32,53 @@ class FrontController extends Controller
             // ->take(1)
             ->first();
 
+        $entertainment_articles = ArticleNews::whereHas('category', function ($query) {
+            $query->where('name', 'Entertainment');
+        })
+            ->where('is_featured', 'not_featured')
+            ->latest()
+            ->take(6)
+            ->get();
+
+        $entertainment_featured_articles = ArticleNews::whereHas('category', function ($query) {
+            $query->where('name', 'Entertainment');
+        })
+            ->where('is_featured', 'featured')
+            ->inRandomOrder()
+            ->first();
+
+        $business_articles = ArticleNews::whereHas('category', function ($query) {
+            $query->where('name', 'Business');
+        })
+            ->where('is_featured', 'not_featured')
+            ->latest()
+            ->take(6)
+            ->get();
+
+        $business_featured_articles = ArticleNews::whereHas('category', function ($query) {
+            $query->where('name', 'Business');
+        })
+            ->where('is_featured', 'featured')
+            ->inRandomOrder()
+            ->first();
+
+        $automotive_articles = ArticleNews::whereHas('category', function ($query) {
+            $query->where('name', 'Automotive');
+        })
+            ->where('is_featured', 'not_featured')
+            ->latest()
+            ->take(6)
+            ->get();
+
+        $automotive_featured_articles = ArticleNews::whereHas('category', function ($query) {
+            $query->where('name', 'Automotive');
+        })
+            ->where('is_featured', 'featured')
+            ->inRandomOrder()
+            ->first();
+
         $authors = Author::all();
 
-        return view('front.index', compact('categories', 'articles', 'authors', 'featured_articles', 'bannerAds'));
+        return view('front.index', compact('categories', 'articles', 'authors', 'featured_articles', 'bannerAds', 'entertainment_articles', 'entertainment_featured_articles', 'business_articles', 'business_featured_articles', 'automotive_articles', 'automotive_featured_articles'));
     }
 }
