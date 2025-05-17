@@ -73,7 +73,9 @@
                                     alt="thumbnail" />
                             </div>
                             <div class="card-info flex flex-col gap-[6px]">
-                                <h3 class="font-bold text-lg leading-[27px]">{{ $article->name }}</h3>
+                                <h3 class="font-bold text-lg leading-[27px]">
+                                    {{ strlen($article->name) > 50 ? substr($article->name, 0, 70) . '...' : $article->name }}
+                                </h3>
                                 <p class="text-sm leading-[21px] text-[#A3A6AE]">
                                     {{ $article->created_at->format('d M, Y') }}</p>
                             </div>
@@ -148,7 +150,7 @@
                         <div class="flex flex-col gap-[10px]">
                             <p class="text-white">Featured</p>
                             <a href="{{ route('front.details', $entertainment_featured_articles->slug) }}"
-                                class="font-bold text-[30px] leading-[36px] text-white hover:underline transition-all duration-300">{{ strlen($entertainment_featured_articles->name) > 50 ? substr($entertainment_featured_articles->name, 0, 70) . '...' : $entertainment_featured_articles->name }}</a>
+                                class="font-bold text-[30px] leading-[36px] text-white hover:underline transition-all duration-300">{{ $entertainment_featured_articles->name }}</a>
                             <p class="text-white">{{ $entertainment_featured_articles->created_at->format('d M, Y') }}</p>
                         </div>
                     </div>
@@ -203,7 +205,7 @@
                         <div class="flex flex-col gap-[10px]">
                             <p class="text-white">Featured</p>
                             <a href="{{ route('front.details', $business_featured_articles->slug) }}"
-                                class="font-bold text-[30px] leading-[36px] text-white hover:underline transition-all duration-300">{{ strlen($business_featured_articles->name) > 50 ? substr($business_featured_articles->name, 0, 70) . '...' : $business_featured_articles->name }}</a>
+                                class="font-bold text-[30px] leading-[36px] text-white hover:underline transition-all duration-300">{{ $business_featured_articles->name }}</a>
                             <p class="text-white">{{ $business_featured_articles->created_at->format('d M, Y') }}</p>
                         </div>
                     </div>
@@ -258,7 +260,7 @@
                         <div class="flex flex-col gap-[10px]">
                             <p class="text-white">Featured</p>
                             <a href="{{ route('front.details', $automotive_featured_articles->slug) }}"
-                                class="font-bold text-[30px] leading-[36px] text-white hover:underline transition-all duration-300">{{ strlen($automotive_featured_articles->name) > 50 ? substr($automotive_featured_articles->name, 0, 70) . '...' : $automotive_featured_articles->name }}</a>
+                                class="font-bold text-[30px] leading-[36px] text-white hover:underline transition-all duration-300">{{ $automotive_featured_articles->name }}</a>
                             <p class="text-white">{{ $automotive_featured_articles->created_at->format('d M, Y') }}</p>
                         </div>
                     </div>
